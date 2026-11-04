@@ -1,0 +1,355 @@
+:root {
+    /* =========================
+       🎨 COLOR TOKENS
+    ========================== */
+    --color-bg: #0b0b0c;
+    --color-surface: #1a1a1a;
+    --color-surface-hover: #222222;
+    --color-text: #ffffff;
+    --color-text-muted: rgba(255, 255, 255, 0.55);
+    --color-accent: #ff4d4d;
+    --color-border: #2a2a2a;
+    --color-border-soft: rgba(255, 255, 255, 0.08);
+    /* =========================
+       📏 SIZE SYSTEM
+    ========================== */
+    --clock-size: 270px;
+    --radius-full: 50%;
+    /* =========================
+       🔤 TYPOGRAPHY
+    ========================== */
+    --font-family: system-ui;
+    --text-xs: 12px;
+    --text-sm: 13px;
+    --text-md: 14px;
+    --text-lg: 20px;
+    --text-xl: 23px;
+    --weight-bold: 600;
+    /* =========================
+       📐 SPACING
+    ========================== */
+    --space-3: 8px;
+    --space-4: 10px;
+    /* =========================
+       ⚡ TRANSITION
+    ========================== */
+    --transition-fast: 0.15s ease;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    overflow: hidden;
+}
+
+#root {
+    overflow: hidden;
+}
+
+.clock-wrapper {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* =========================
+   CLOCK
+========================= */
+.clock {
+    width: 100%;
+    height: 100%;
+    min-width: 200px;
+    min-height: 200px;
+    border-radius: var(--radius-full);
+    position: relative;
+    background: var(--color-surface);
+    border: var(--clock-border-width, 3px) solid var(--color-border-soft);
+    cursor: pointer;
+    overflow: hidden;
+    user-select: none;
+}
+
+.clock.light {
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f4f5f7;
+    --color-text: #111827;
+    --color-text-muted: #6b7280;
+    --color-accent: #ef4444;
+    --color-border: #d1d5db;
+    --color-border-soft: rgba(17, 24, 39, 0.1);
+}
+
+/* =========================
+   TITLE
+========================= */
+.title {
+    position: absolute;
+    top: var(--title-top, 70px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: var(--weight-bold);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* =========================
+   TIME
+========================= */
+.time {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--font-size-xl, 23px);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+}
+
+/* =========================
+   NUMBERS
+========================= */
+.num {
+    position: absolute;
+    font-size: var(--font-size-md, 15px);
+    font-weight: bold;
+    color: var(--color-text);
+    opacity: 0.85;
+    transform: translate(-50%, -50%);
+}
+
+/* =========================
+   HANDS
+========================= */
+.hand {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform-origin: bottom;
+}
+
+.hour {
+    width: var(--hand-hour-width, 4px);
+    height: var(--hand-hour-height, 70px);
+    background: var(--color-text);
+}
+
+.minute {
+    width: var(--hand-minute-width, 3px);
+    height: var(--hand-minute-height, 90px);
+    background: var(--color-text);
+}
+
+.second {
+    width: var(--hand-second-width, 2px);
+    height: var(--hand-second-height, 100px);
+    background: var(--color-accent);
+}
+
+/* center dot */
+.clock::after {
+    content: "";
+    width: var(--center-dot-size, 10px);
+    height: var(--center-dot-size, 10px);
+    background: var(--color-accent);
+    border: calc(2px * var(--clock-scale, 1)) solid var(--color-text);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* =========================
+   TIMEZONE
+========================= */
+.tzText {
+    position: absolute;
+    bottom: 24%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--font-size-xs, 12px);
+    color: var(--color-text);
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.tzText span {
+    font-size: calc(var(--font-size-xs, 12px) * 0.85);
+    padding-top: 2px;
+}
+
+.configBox,
+.configBox .btn-sm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.66;
+}
+
+.configBox {
+    position: absolute;
+    bottom: 12%;
+    padding: 0px var(--config-padding, 5px);
+    border: 1px solid var(--color-border-soft);
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: var(--config-radius, 6px);
+    font-size: var(--font-size-xs, 12px);
+    color: var(--color-text);
+    opacity: 0.85;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.configBox .btn-sm {
+    height: var(--config-btn-size, 20px);
+    width: var(--config-btn-size, 20px);
+    border-radius: 999px;
+}
+
+.configBox .btn-sm:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.popupOverlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.popup {
+    height: 100%;
+    width: 100%;
+    padding: var(--popup-padding, 24px);
+    border-radius: var(--popup-radius, 28px);
+    overflow: hidden;
+    background: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    gap: calc(18px * var(--clock-scale, 1));
+}
+
+.settingsBody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.settingRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+}
+
+.settingValue {
+    color: var(--color-text-muted);
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--color-accent);
+}
+
+.tzText label {
+    cursor: pointer;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tzText span {
+    font-size: 8px;
+}
+
+/* =========================
+   POPUP
+========================= */
+.popup {
+    position: absolute;
+    inset: 0;
+    padding: var(--popup-padding, 30px);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    background: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+/* topbar */
+.topbar {
+    padding: var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border-soft);
+}
+
+/* list (scroll hidden but functional) */
+.list {
+    flex: 1;
+    overflow: auto;
+    /* Hide scrollbar - Firefox */
+    scrollbar-width: none;
+}
+
+/* Hide scrollbar - Chrome, Edge, Safari */
+.list::-webkit-scrollbar {
+    display: none;
+}
+
+/* item */
+.item {
+    padding: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.item:hover {
+    background: var(--color-surface-hover);
+}
